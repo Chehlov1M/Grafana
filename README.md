@@ -1,29 +1,28 @@
 # ДЗ «Средство визуализации Grafana»
 
 ## Задание 1
-- [x] Prometheus и Grafana запущены
-- [x] Datasource Prometheus подключён
+- Prometheus и Grafana запущены
+- Datasource Prometheus подключён
 - ![Datasource](screenshots_datasource.png)
 
 ## Задание 2
-- [x] Dashboard создан
-- [x] 4 панели добавлены
+- Dashboard создан
+- 4 панели добавлены
 - PromQL-запросы:
   - CPU: `100 - (avg by(instance)...`
   - LA: `node_load1`, `node_load5`, `node_load15`
   - Memory: `node_memory_MemAvailable_bytes`
   - Disk: `node_filesystem_avail_bytes...`
-- ![Dashboard](screenshots/dashboard.png)
+- ![Dashboard](screenshots_dashboard.png)
 
 ## Задание 3
-- [x] Алерты настроены в Prometheus
-- [x] Контакт-пойнт Telegram создан
-- [x] Тестовый алерт отправлен
+- Алерты настроены в Prometheus
+- Контакт-пойнт email создан
+- Тестовый алерт отправлен
 - ![Email alert](screenshots_email_alert.png)
-- ![Grafana Alerting](screenshots/grafana_alerting.png)
+- ![Grafana Alerting](screenshots_grafana_alerting.png)
 
 ## Задание 4
-- [x] JSON Dashboard сохранён
 Содержимое файла `dashboards_node_exporter.json`:
 
 ```json
