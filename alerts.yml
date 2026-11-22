@@ -1,0 +1,39 @@
+groups:
+  - name: node_alerts
+    rules:
+      - alert: HighCpuUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Высокая утилизация CPU"
+          description: "CPU на {{ $labels.instance }} выше 80% уже 5 минут (текущее значение: {{ $value | printf \"%.1f\" }}%)"
+
+      - alert: HighLoadAverage
+        expr: node_load1 > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Высокий LA1"
+          description: "Load average 1min на {{ $labels.instance }} больше 2"
+
+      - alert: LowAvailableMemory
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Мало свободной памяти"
+          description: "Свободной RAM меньше 10% (сейчас {{ $value | printf \"%.1f\" }}%)"
+
+      - alert: LowDiskSpace
+        expr: node_filesystem_avail_bytes{mountpoint="/",fstype!="tmpfs"} / node_filesystem_size_bytes{mountpoint="/",fstype!="tmpfs"} * 100 < 15
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Мало места на диске"
+          description: "На {{ $labels.instance }} смонтировано {{ $labels.mountpoint }}: свободно {{ $value | printf \"%.1f\" }}%"
+
